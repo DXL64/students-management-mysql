@@ -1,7 +1,6 @@
 #!/bin/bash
 
 docker compose down -v
-rm -rf ./data
 #docker-compose build
 docker compose up -d
 
@@ -21,9 +20,6 @@ MS_STATUS=`docker exec master sh -c 'export MYSQL_PWD=root; mysql -u root -e "SH
 CURRENT_LOG=`echo $MS_STATUS | awk '{print $6}'`
 CURRENT_POS=`echo $MS_STATUS | awk '{print $7}'`
 
-echo $CURRENT_LOG
-echo $CURRENT_POS
-
 start_slave1_stmt="CHANGE MASTER TO MASTER_HOST='master',MASTER_USER='slave1',MASTER_PASSWORD='slave',MASTER_LOG_FILE='$CURRENT_LOG',MASTER_LOG_POS=$CURRENT_POS; START SLAVE;"
 start_slave1_cmd='export MYSQL_PWD=slave; mysql -u root -e "'
 start_slave1_cmd+="$start_slave1_stmt"
@@ -42,4 +38,4 @@ docker exec slave2 sh -c "export MYSQL_PWD=slave; mysql -u root -e 'SHOW SLAVE S
 import_data='SOURCE db-data/students-management.sql;'
 docker exec master sh -c "export MYSQL_PWD=root; mysql -u root -e '$import_data'"
 
-echo $import_data
+echo 'Successfully'

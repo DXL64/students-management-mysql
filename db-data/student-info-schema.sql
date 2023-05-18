@@ -84,7 +84,7 @@ ALTER TABLE
 ALTER TABLE
     `student_club` ADD CONSTRAINT `student_club_studentid_foreign` FOREIGN KEY(`student_id`) REFERENCES `student`(`student_id`);
 ALTER TABLE
-    `teacher_class` ADD CONSTRAINT `teacher_class_classid_foreign` FOREIGN KEY(`class_id`) REFERENCES `class`(`class_id`);
+    `teacher_class` ADD CONSTRAINT `teacher_class_classid_foreign` FOREIGN KEY(`class_id`) REFERENCES `class_group`(`class_id`);
 ALTER TABLE
     `student_club` ADD CONSTRAINT `student_club_clubid_foreign` FOREIGN KEY(`club_id`) REFERENCES `club`(`club_id`);
 ALTER TABLE

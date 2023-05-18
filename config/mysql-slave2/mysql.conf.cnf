@@ -1,8 +1,15 @@
 [mysqld]
 
+character-set-server=utf8mb4
+collation-server=utf8mb4_unicode_ci
+skip-character-set-client-handshake
 skip-name-resolve
 default_authentication_plugin = mysql_native_password
 
-server-id = 3
+server-id = 2
 log_bin = 1
 binlog_do_db = students-management
+replicate-do-db = students-management
+
+[client]
+default-character-set=utf8mb4

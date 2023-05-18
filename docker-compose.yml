@@ -4,7 +4,6 @@ services:
    image: mysql:latest
    container_name: master
    volumes:
-     #- ./db-schema:/docker-entrypoint-initdb.d/
      - ./db-data:/db-data
      - ./config/mysql-master:/etc/mysql/conf.d/
    environment:
@@ -15,6 +14,9 @@ services:
  mysqlslave1:
    image: mysql:latest
    container_name: slave1
+   volumes:
+     - ./config/mysql-slave1:/etc/mysql/conf.d/
+   command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
    environment:
      - MYSQL_ROOT_PASSWORD=slave
      - MYSQL_PORT=3306
@@ -23,13 +25,14 @@ services:
      - MYSQL_DATABASE=students-management
    ports:
      - 4506:3306
-   volumes:
-     - ./config/mysql-slave1:/etc/mysql/conf.d/
    depends_on:
      - mysqlmaster
  mysqlslave2:
    image: mysql:latest
    container_name: slave2
+   volumes:
+     - ./config/mysql-slave2:/etc/mysql/conf.d/
+   command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_general_ci', '--skip-character-set-client-handshake']
    environment:
      - MYSQL_ROOT_PASSWORD=slave
      - MYSQL_PORT=3306
@@ -38,7 +41,5 @@ services:
      - MYSQL_DATABASE=students-management
    ports:
      - 4606:3306
-   volumes:
-     - ./config/mysql-slave2:/etc/mysql/conf.d/
    depends_on:
      - mysqlmaster

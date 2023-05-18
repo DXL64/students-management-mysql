@@ -91,6 +91,23 @@ CREATE TABLE `class`(
     PRIMARY KEY (class_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+ALTER TABLE
+    `student_class` ADD CONSTRAINT `student_class_studentid_foreign` FOREIGN KEY(`student_id`) REFERENCES `student`(`student_id`);
+ALTER TABLE
+    `student` ADD CONSTRAINT `student_groupid_foreign` FOREIGN KEY(`group_id`) REFERENCES `class_group`(`group_id`);
+ALTER TABLE
+    `teacher_class` ADD CONSTRAINT `teacher_class_teacherid_foreign` FOREIGN KEY(`teacher_id`) REFERENCES `teacher`(`teacher_id`);
+ALTER TABLE
+    `student_club` ADD CONSTRAINT `student_club_studentid_foreign` FOREIGN KEY(`student_id`) REFERENCES `student`(`student_id`);
+ALTER TABLE
+    `teacher_class` ADD CONSTRAINT `teacher_class_classid_foreign` FOREIGN KEY(`class_id`) REFERENCES `class`(`class_id`);
+ALTER TABLE
+    `student_club` ADD CONSTRAINT `student_club_clubid_foreign` FOREIGN KEY(`club_id`) REFERENCES `club`(`club_id`);
+ALTER TABLE
+    `class` ADD CONSTRAINT `class_courseid_foreign` FOREIGN KEY(`course_id`) REFERENCES `course`(`course_id`);
+ALTER TABLE
+    `student_class` ADD CONSTRAINT `student_class_classid_foreign` FOREIGN KEY(`class_id`) REFERENCES `class`(`class_id`);
+
 INSERT INTO club VALUE (1, "Câu lạc đá cầu của thầy Minh", "https://www.google.com/"),
     (2, "Câu lạc bộ Thư viện Hội Sinh viên", "https://www.google.com/"),
     (3, "Câu lạc bộ Nghệ thuật", "https://www.google.com/"),

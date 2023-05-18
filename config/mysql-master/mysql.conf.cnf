@@ -1,5 +1,8 @@
 [mysqld]
 
+character-set-server=utf8mb4
+collation-server=utf8mb4_unicode_ci
+skip-character-set-client-handshake
 skip-name-resolve
 default_authentication_plugin = mysql_native_password
 
@@ -7,3 +10,6 @@ bind-address = 0.0.0.0
 server-id = 1
 log_bin = 1
 binlog_format = ROW
+
+[client]
+default-character-set=utf8mb4

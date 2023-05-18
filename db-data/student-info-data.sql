@@ -6,7 +6,7 @@ SET @old_autocommit=@@autocommit;
 
 SET AUTOCOMMIT=0;
 
-INSERT INTO club VALUE (1, "Câu lạc đá cầu của thầy Minh", "https://www.google.com/"),
+INSERT INTO club VALUE (1, "Câu lạc đá cầu", "https://www.google.com/"),
     (2, "Câu lạc bộ Thư viện Hội Sinh viên", "https://www.google.com/"),
     (3, "Câu lạc bộ Nghệ thuật", "https://www.google.com/"),
     (4, "Câu lạc bộ nguồn nhân lực HRTech", "https://www.google.com/"),
