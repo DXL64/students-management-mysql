@@ -1,0 +1,44 @@
+version: "3.8"
+services:
+ mysqlmaster:
+   image: mysql:latest
+   container_name: master
+   volumes:
+     #- ./db-schema:/docker-entrypoint-initdb.d/
+     - ./db-data:/db-data
+     - ./config/mysql-master:/etc/mysql/conf.d/
+   environment:
+     - MYSQL_DATABASE=students-management
+     - MYSQL_ROOT_PASSWORD=root
+   ports:
+     - 4406:3306
+ mysqlslave1:
+   image: mysql:latest
+   container_name: slave1
+   environment:
+     - MYSQL_ROOT_PASSWORD=slave
+     - MYSQL_PORT=3306
+     - MYSQL_USER=slave1
+     - MYSQL_PASSWORD=slave
+     - MYSQL_DATABASE=students-management
+   ports:
+     - 4506:3306
+   volumes:
+     - ./config/mysql-slave1:/etc/mysql/conf.d/
+   depends_on:
+     - mysqlmaster
+ mysqlslave2:
+   image: mysql:latest
+   container_name: slave2
+   environment:
+     - MYSQL_ROOT_PASSWORD=slave
+     - MYSQL_PORT=3306
+     - MYSQL_USER=slave2
+     - MYSQL_PASSWORD=slave
+     - MYSQL_DATABASE=students-management
+   ports:
+     - 4606:3306
+   volumes:
+     - ./config/mysql-slave2:/etc/mysql/conf.d/
+   depends_on:
+     - mysqlmaster
