@@ -16,7 +16,6 @@ services:
    container_name: slave1
    volumes:
      - ./config/mysql-slave1:/etc/mysql/conf.d/
-   command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
    environment:
      - MYSQL_ROOT_PASSWORD=slave
      - MYSQL_PORT=3306
@@ -32,7 +31,6 @@ services:
    container_name: slave2
    volumes:
      - ./config/mysql-slave2:/etc/mysql/conf.d/
-   command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_general_ci', '--skip-character-set-client-handshake']
    environment:
      - MYSQL_ROOT_PASSWORD=slave
      - MYSQL_PORT=3306
