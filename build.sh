@@ -10,6 +10,18 @@ do
     sleep 4
 done
 
+until docker exec -it slave1 sh -c 'export MYSQL_PWD=slave; mysql -uroot -e";"'
+do
+    echo "Waiting for mysql_slave1 database connection..."
+    sleep 4
+done
+
+until docker exec -it slave2 sh -c 'export MYSQL_PWD=slave; mysql -uroot -e";"'
+do
+    echo "Waiting for mysql_slave2 database connection..."
+    sleep 4
+done
+
 create_slave1='CREATE USER "slave1"@"%" IDENTIFIED BY "slave";GRANT REPLICATION SLAVE ON *.* TO "slave1"@"%"; FLUSH PRIVILEGES;'
 create_slave2='CREATE USER "slave2"@"%" IDENTIFIED BY "slave";GRANT REPLICATION SLAVE ON *.* TO "slave2"@"%"; FLUSH PRIVILEGES;'
 docker exec master sh -c "export MYSQL_PWD=root; mysql -u root -e '$create_slave1'"
